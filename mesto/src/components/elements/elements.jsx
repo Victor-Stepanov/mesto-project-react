@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import elementsStyles from './elements.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { getInitialCardsFromServer } from '../../services/actions/cards'
+import { getInitialCardsFromServer, deleteCardFromServer } from '../../services/actions/cards';
 
 
 const Elements = () => {
@@ -12,7 +12,6 @@ const Elements = () => {
 	useEffect(() => {
 		dispatch(getInitialCardsFromServer())
 	}, [dispatch])
-
 
 	return (
 		<section className={elementsStyles.elements}>
@@ -26,7 +25,18 @@ const Elements = () => {
 }
 
 const Element = ({ props }) => {
-	console.log(props)
+	//нужен id карты, id создателя карточки и если id === userId, то можно удалять
+	const userID = useSelector(state => state.userData.info._id)
+	const dispatch = useDispatch();
+
+	const handlerDeleteCard = (ownerID, cardID) => {
+		if (ownerID === userID) {
+			dispatch(deleteCardFromServer(cardID))
+		} else {
+			alert('Can not delete card')
+		}
+	}
+
 	return (
 		<div className={elementsStyles.element}>
 			<img className={elementsStyles.element__image} src={props.link} alt={props.name} />
@@ -37,7 +47,7 @@ const Element = ({ props }) => {
 					<span className={elementsStyles.element__like_counter}>{props.likes.length}</span>
 				</div>
 			</div>
-			<button className={elementsStyles.element__delete_btn}></button>
+			<button onClick={() => handlerDeleteCard(props.owner._id, props._id)} className={elementsStyles.element__delete_btn}></button>
 		</div>
 	)
 }

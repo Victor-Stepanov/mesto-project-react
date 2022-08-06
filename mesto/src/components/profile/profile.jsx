@@ -5,7 +5,8 @@ import {getInfoAboutUserFromServer} from '../../services/actions/user'
 
 
 
-const Profile = () => {
+const Profile = ({onClick}) => {
+	
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getInfoAboutUserFromServer())
@@ -20,7 +21,7 @@ const Profile = () => {
 			<div className={profileStyles.profile__box}>
 				<div className={profileStyles.profile__info}>
 					<h1 className={profileStyles.profile__name}>{info.name }</h1>
-					<button className={profileStyles.profile__edit_btn} type='button'></button>
+					<button onClick={onClick} className={profileStyles.profile__edit_btn} type='button'></button>
 				</div>
 				<p className={profileStyles.profile__moniker}>{ info.about}</p>
 			</div>

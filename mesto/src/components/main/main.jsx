@@ -3,10 +3,10 @@ import Elements from "../elements/elements";
 import Profile from "../profile/profile";
 
 
-const Main = () => {
+const Main = ({onClick}) => {
 	return (
 		<main>
-			<Profile />
+			<Profile onClick={onClick} />
 			<Elements />
 		</main>
 	);

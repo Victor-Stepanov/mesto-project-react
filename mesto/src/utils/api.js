@@ -27,13 +27,27 @@ export const getInitialCards = () => {
 export const sendCardFromServer = (card) => { }
 
 //5. Редактирование профиля
-export const updateProfileInfo = ({ name, about }) => { }
+export const updateProfileInfo = (name, about) => {
+	console.log(name, about)
+	return fetch(`${config.baseUrl}/users/me`, {
+		headers: config.headers,
+		body: JSON.stringify({name, about})
+	})
+	.then(res => checkStatus(res))
+ }
 
 //10. Обновление аватара пользователя
 export const updateProfilePhoto = ({ avatar }) => { }
 
 //8. Удаление карточки
-export const deleteCard = (cardId) => { }
+export const deleteCard = (cardId) => {
+	return fetch(`${config.baseUrl}/cards/${cardId}`, {
+		method: "DELETE",
+		headers: config.headers,
+	})
+	.then(res => checkStatus(res))
+
+ }
 
 //9. Постановка лайка
 
