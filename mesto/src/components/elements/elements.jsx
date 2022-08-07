@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import elementsStyles from './elements.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { getInitialCardsFromServer, deleteCardFromServer } from '../../services/actions/cards';
+import { getInitialCardsFromServer, deleteCardFromServer, removeLikeCardFromServer, addLikeCardFromServer } from '../../services/actions/cards';
 
 
 const Elements = () => {
@@ -37,17 +37,28 @@ const Element = ({ props }) => {
 		}
 	}
 
+	const handlerChangeLike = (cardID) => {
+		let arr = props.likes
+		if (arr.includes(userID)) {
+			console.log(arr.includes(userID))
+			dispatch(removeLikeCardFromServer(cardID))
+		} else {
+			dispatch(addLikeCardFromServer(cardID))
+		}
+
+	}
+
 	return (
 		<div className={elementsStyles.element}>
 			<img className={elementsStyles.element__image} src={props.link} alt={props.name} />
 			<div className={elementsStyles.element__info}>
 				<h2 className={elementsStyles.element__name}>{props.name}</h2>
 				<div className={elementsStyles.element__like}>
-					<button className={elementsStyles.element__like_btn} type="button"></button>
+					<button onClick={() => handlerChangeLike(props._id)} className={elementsStyles.element__like_btn} type="button"></button>
 					<span className={elementsStyles.element__like_counter}>{props.likes.length}</span>
 				</div>
 			</div>
-			<button onClick={() => handlerDeleteCard(props.owner._id, props._id)} className={elementsStyles.element__delete_btn}></button>
+			{props.owner._id !== userID ?'' : <button onClick={() => handlerDeleteCard(props.owner._id, props._id)} className={elementsStyles.element__delete_btn}></button>}
 		</div>
 	)
 }

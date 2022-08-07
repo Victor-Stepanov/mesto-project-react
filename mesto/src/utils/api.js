@@ -51,7 +51,20 @@ export const deleteCard = (cardId) => {
 
 //9. Постановка лайка
 
-export const addLikeCard = (cardId) => { }
+export const addLikeCard = (cardId) => {
+	return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+		method: "PUT",
+		headers: config.headers,
+	})
+		.then((res) => checkStatus(res))
+
+}
 
 //9. Снятие лайка
-export const removeLikeCard = (cardId) => { }
+export const removeLikeCard = (cardId) => {
+	return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+		method: "DELETE",
+		headers: config.headers,
+	})
+		.then((res) => checkStatus(res))
+}
