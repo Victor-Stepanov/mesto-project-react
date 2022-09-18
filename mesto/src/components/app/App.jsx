@@ -1,36 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Modal from "../modal/modal";
-import styles from './App.module.css'
+import styles from "./App.module.css";
 import Header from "../header/header";
-import Main from '../main/main';
-import { useDispatch } from 'react-redux';
-import { getCards } from "../../services/actions/cards";
+import Main from "../main/main";
 import ModalProfileInfo from "../modal-profile/modal-propfile";
+import { Footer } from "../footer/footer";
 
-function App() {
-  const dispatch = useDispatch();
+const App = () => {
 
-  useEffect(() => {
-    dispatch(getCards())
-  }, [dispatch])
-
-
-  const [isModalProfileOpened, setIsModalProfileOpened] = useState(false)
-
+  const [isModalProfileOpened, setIsModalProfileOpened] = useState(false);
 
   const closeAllModals = () => {
-    setIsModalProfileOpened(false)
-  }
+    setIsModalProfileOpened(false);
+  };
 
   const openProfileModal = () => {
-    setIsModalProfileOpened(true)
-  }
-
+    setIsModalProfileOpened(true);
+  };
 
   return (
     <div className={styles.app}>
       <Header />
       <Main onClick={openProfileModal} />
+      <Footer />
       {isModalProfileOpened &&
         <Modal
           onClose={closeAllModals}>
