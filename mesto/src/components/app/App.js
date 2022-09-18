@@ -3,11 +3,17 @@ import Modal from "../modal/modal";
 import styles from './App.module.css'
 import  Header  from "../header/header";
 import Main from '../main/main';
-import { useDispatch} from 'react-redux';
-import { getInitialCardsFromServer } from '../../services/actions/cards';
+import { useDispatch } from 'react-redux';
+import { getCards } from "../../services/actions/cards";
 import ModalProfileInfo from "../modal-profile/modal-propfile";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCards())
+  }, [dispatch])
+
 
   const [isModalProfileOpened, setIsModalProfileOpened] = useState(false)
 

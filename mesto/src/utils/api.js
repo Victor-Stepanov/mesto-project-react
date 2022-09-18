@@ -1,70 +1,82 @@
-import { config } from './const';
-
-// Проверяем статус запроса
-const checkStatus = (res) => {
-	if (res.ok) {
-		return res.json();
+import { config } from "./const";
+class Api {
+	constructor(config) {
+		this._url = config.baseUrl;
+		this._headers = config.headers;
 	}
-	return Promise.reject(`Ошибка: ${res.status}`);
+
+	//Парсинг ответа
+	_parseResponse(res) {
+		return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+	}
+	//Вытягиваие карточек с сервера
+	async getCardsFromServer() {
+		const res = await fetch(`${this._url}/cards`, {
+			headers: this._headers,
+		});
+		return this._parseResponse(res);
+	}
+	//Добавление своей карточки
+	async postCard(card) {
+		const res = await fetch(`${this._url}/cards`, {
+			method: "POST",
+			headers: this._headers,
+			body: JSON.stringify({
+				name: card.name,
+				link: card.link,
+			}),
+		});
+		return this._parseResponse(res);
+	}
+	//Удаление карточки
+	async deleteCard(cardId) {
+		const res = await fetch(`${this._url}/cards/${cardId}`, {
+			method: "DELETE",
+			headers: this._headers,
+		});
+		return this._parseResponse(res);
+	}
+	//Добавление лайка
+	async addLike(id) {
+		const res = await fetch(`${this._url}/cards/likes/${id}`, {
+			method: "PUT",
+			headers: this._headers,
+		});
+		return this._parseResponse(res);
+	}
+	//Удаление лайка
+	async deleteLike(id) {
+		const res = await fetch(`${this._url}/cards/likes/${id}`, {
+			method: "DELETE",
+			headers: this._headers,
+		});
+		return this._parseResponse(res);
+	}
+	//Получение данных о пользователе
+	async getUser() {
+		const res = await fetch(`${this._url}/users/me`, {
+			headers: this._headers,
+		});
+		return this._parseResponse(res);
+	}
+	//Добавление пользователя
+	async updateUser({ name, about }) {
+		const res = await fetch(`${this._url}/users/me`, {
+			method: "PATCH",
+			headers: this._headers,
+			body: JSON.stringify({ name, about }),
+		});
+		return this._parseResponse(res);
+	}
+	//Смена аватарки
+	async updateAvatar({ avatar }) {
+		const res = await fetch(`${this._url}/users/me/avatar`, {
+			method: "PATCH",
+			headers: this._headers,
+			body: JSON.stringify({ avatar }),
+		});
+		return this._parseResponse(res);
+	}
 }
-// 3.Получаем инфу о пользователи
-export const getInfoAboutUser = () => {
-	return fetch(`${config.baseUrl}/users/me`, {
-		headers: config.headers
-	})
-		.then(res => checkStatus(res))
-}
 
-//4.Отправляем get запрос на получение карточек
-export const getInitialCards = () => {
-	return fetch(`${config.baseUrl}/cards`, {
-		headers:config.headers
-	})
-	.then(res => checkStatus(res))
-}
-
-//6. Добавление новой карточки
-export const sendCardFromServer = (card) => { }
-
-//5. Редактирование профиля
-export const updateProfileInfo = (name, about) => {
-	console.log(name, about)
-	return fetch(`${config.baseUrl}/users/me`, {
-		headers: config.headers,
-		body: JSON.stringify({name, about})
-	})
-	.then(res => checkStatus(res))
- }
-
-//10. Обновление аватара пользователя
-export const updateProfilePhoto = ({ avatar }) => { }
-
-//8. Удаление карточки
-export const deleteCard = (cardId) => {
-	return fetch(`${config.baseUrl}/cards/${cardId}`, {
-		method: "DELETE",
-		headers: config.headers,
-	})
-	.then(res => checkStatus(res))
-
- }
-
-//9. Постановка лайка
-
-export const addLikeCard = (cardId) => {
-	return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
-		method: "PUT",
-		headers: config.headers,
-	})
-		.then((res) => checkStatus(res))
-
-}
-
-//9. Снятие лайка
-export const removeLikeCard = (cardId) => {
-	return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
-		method: "DELETE",
-		headers: config.headers,
-	})
-		.then((res) => checkStatus(res))
-}
+export default new Api(config);
