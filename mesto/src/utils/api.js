@@ -53,7 +53,7 @@ class Api {
 		return this._parseResponse(res);
 	}
 	//Получение данных о пользователе
-	async getUser() {
+	async getUserInfoFromServer() {
 		const res = await fetch(`${this._url}/users/me`, {
 			headers: this._headers,
 		});

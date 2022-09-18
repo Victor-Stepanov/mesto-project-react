@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {useDispatch} from 'react-redux'
 import ModalProfileInfoStyles from './modal-profile.module.css';
-import {sendUpdateProfileInfo} from '../../services/actions/user'
+
 
 const ModalProfileInfo = ({ title }) => {
 
@@ -10,14 +10,10 @@ const ModalProfileInfo = ({ title }) => {
 	const [name, setName] = useState('')
 	const [about, setAbout] = useState('')
 
-	let updateInfo = {
-		name: name,
-		about:about
-	}
 	
 	const handlerSendInfo = (e) => {
 		e.preventDefault();
-		dispatch(sendUpdateProfileInfo(updateInfo))
+		
 	}
 	
 	return (
