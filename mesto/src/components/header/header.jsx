@@ -9,7 +9,7 @@ const Header = () => {
 			<a href="_" className={headerStyles.header__link}>
 				<img className={headerStyles.header__logo} src={require('../../images/header/logo.png')} alt="" />
 			</a>
-	  </header>
+		</header>
 
 	)
 }
