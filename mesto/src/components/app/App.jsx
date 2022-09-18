@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../modal/modal";
 import styles from './App.module.css'
-import  Header  from "../header/header";
+import Header from "../header/header";
 import Main from '../main/main';
 import { useDispatch } from 'react-redux';
 import { getCards } from "../../services/actions/cards";
@@ -30,13 +30,13 @@ function App() {
   return (
     <div className={styles.app}>
       <Header />
-      <Main onClick={openProfileModal }/>
+      <Main onClick={openProfileModal} />
       {isModalProfileOpened &&
-      <Modal
-      onClose={closeAllModals}>
-        <ModalProfileInfo/>
-      </Modal>
-      
+        <Modal
+          onClose={closeAllModals}>
+          <ModalProfileInfo />
+        </Modal>
+
       }
     </div>
   );
