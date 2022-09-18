@@ -1,0 +1,127 @@
+.elements {  
+	margin: 0 auto;
+	max-width: 880px;
+	box-sizing: border-box;
+	padding: 50px 0 66px 0;
+	display: grid;
+	grid-template-columns: repeat(3, 282px);
+	gap: 17px 20px;
+  }
+  
+  @media screen and (max-width: 920px) {
+	.elements {
+	  grid-template-columns: repeat(2, 282px);
+	  justify-content: center;
+	  gap: 10px 15px;
+	}
+  }
+  
+  @media screen and (max-width: 630px) {
+	.elements {
+	  padding-top: 36px;
+	  padding-bottom: 48px;
+	  grid-template-columns: 282px;
+	  gap: 20px 0;
+	}
+  }
+
+
+  .element {
+	padding: 0;
+	margin: 0;
+	max-width: 282px;
+	border-radius: 10px;
+	background-color:white;
+	overflow: hidden;
+	box-sizing: border-box;
+	position: relative;
+  }
+
+  .element__image {
+	width: 282px;
+	height: 282px;
+	object-fit: cover;
+  }
+  .element__image:hover {
+	cursor: pointer;
+  }
+
+  .element__info {
+	padding: 25px 18px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-sizing: border-box;
+  }
+
+  .element__name {
+	margin: 0;
+	padding: 0;
+	color: #000;
+	font-weight: 900;
+	font-size: 24px;
+	line-height: 29px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	max-width: 198px;
+	/* Не нашел в figma значение width для имени, подгонял в ручную пока не появится Ч... */
+  }
+
+  .element__like {
+	display: flex;
+	flex-direction: column;
+}
+.element__like_btn {
+	padding: 0;
+	margin: 0;
+	min-width: 22px;
+	height: 19px;
+	background-image: url(../../images/button/like/Vector.svg);
+	background-repeat: no-repeat;
+	background-color: #fff;
+	border: none;
+	background-position: center;
+	background-size: contain;
+	cursor: pointer;
+  }
+  
+  .element__like_btn:hover {
+	opacity: 0.5;
+	transition: opacity 0.5s;
+  }
+  
+  .element__like_btn:active {
+	opacity: 1;
+  }
+
+  .element__like_counter {
+	padding-top: 3px;
+	font-weight: 400;
+	font-size: 13px;
+	line-height: 16px;
+	text-align: center;
+  
+	color: #000000;
+  }
+
+  .element__delete_btn {
+	position: absolute;
+	background-image: url(../../images/button/delete_button/Group.png);
+	top: 20px;
+	right: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+	border-width: 0;
+	background-color: rgba(0, 0, 0, 0);
+	object-fit: cover;
+	z-index: 0;
+   
+	min-width: 18px;
+	height: 20px;
+  
+  }
+  
+  .element__delete-button:hover {
+	opacity: 0.6;
+  }
